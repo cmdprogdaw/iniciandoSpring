@@ -1,5 +1,46 @@
 <html xmlns:th="http://www.thymeleaf.org">
-	<h1>Bienvenido</h1>
+	<h1>Bienvenido aqui una lista de autores</h1>
+	
+	<table border="1">
+      <tr>
+      	<th>Id</th>
+        <th>Nombre</th>
+        <th>Edad</th>
+        <th>Email</th>
+        <th></th>
+      </tr>
+      <tr th:each="autor : ${autores}">
+      	<td th:text="${autor.id}">Onions</td>
+        <td th:text="${autor.nombre}">Onions</td>
+        <td th:text="${autor.edad}">2.41</td>
+        <td th:text="${autor.email}">yes</td>
+        <td th:href="@{'/details/'+${user.login}(orderId=${o.id})}">Detalle</td>
+      </tr>
+    </table>
+	
+</html>
+
+<!-- para cada uno de los autores que te vayas encontrando en la lista, llamalo unAutor y saca el texto dentro de ese autor 
+	<ol>
+		<li th:each="unAutor : ${autores}" 
+			th:text="${unAutor.nombre}+' '+${unAutor.edad}">Nombre
+		</li>
+	</ol>
+-->
+
+
+<!--
+	codigo para imprimir un atributo suelto
+	
 	<p th:text="'Hola '+ ${nombre} +' bienvenida'">Mi nombre</p>
 	<p th:text="'Tu edad es '+ ${edad}">19</p>
-</html>
+-->
+
+
+<!--
+	codigo para imprimir un objeto
+
+	<p th:text="'Mira, un autor en mi web '+ ${autor.nombre} +' bienvenido'">Mi nombre</p>
+	<p th:text="'Autor, tu edad es ' + ${autor.edad}'">edad</p>
+	<p th:text="'Autor, tu email es ' + ${autor.email}'">email</p>
+-->
