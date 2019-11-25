@@ -1,23 +1,29 @@
 <html xmlns:th="http://www.thymeleaf.org">
-	<h1>Bienvenido aqui una lista de autores</h1>
 	
-	<table border="1">
+<head>
+	<meta charset="UTF-8"/>
+</head>
+	
+	<h1>Bienvenido aquí una lista de autores</h1>
+
+    <table border="1">
       <tr>
-      	<th>Id</th>
+        <th>ID</th>
         <th>Nombre</th>
-        <th>Edad</th>
-        <th>Email</th>
+        <th>edad</th>
+        <th>email</th>
         <th></th>
       </tr>
       <tr th:each="autor : ${autores}">
-      	<td th:text="${autor.id}">Onions</td>
+        <td th:text="${autor.id}">Onions</td>
         <td th:text="${autor.nombre}">Onions</td>
         <td th:text="${autor.edad}">2.41</td>
         <td th:text="${autor.email}">yes</td>
-        <td th:href="@{'/details/'+${user.login}(orderId=${o.id})}">Detalle</td>
+        <td>Detalle</td>
       </tr>
     </table>
 	
+
 </html>
 
 <!-- para cada uno de los autores que te vayas encontrando en la lista, llamalo unAutor y saca el texto dentro de ese autor 

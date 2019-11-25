@@ -29,11 +29,11 @@ public class RutasBasicas {
 //		System.out.println("tu edad es: "+edad);
 //		model.addAttribute("nombre", nombre); //comunica el controlador con el html
 //		model.addAttribute("edad", edad);
-	@GetMapping("/start/")
+	@GetMapping("/start")
 	public String rutaBasicaInicial(Model model) {
 	
 		List<Autor> listaAutores = ListaAutores.construirLista();
-		model.addAttribute("autor",listaAutores);
+		model.addAttribute("autores",listaAutores);
 		
 		//va a buscar un fichero hola.html (solo ponemos el nombre) porque entiende que las vistas son ficheros .html
 		return "hola";
