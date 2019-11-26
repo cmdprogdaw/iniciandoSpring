@@ -19,7 +19,10 @@
         <td th:text="${autor.nombre}">Onions</td>
         <td th:text="${autor.edad}">2.41</td>
         <td th:text="${autor.email}">yes</td>
-        <td>Detalle</td>
+        <!-- SIEMPRE q tengamos un enlace, q vaya a una ruta que tengo un controlador, pq vamos a manejar lo que va a pasar a continuacion -->
+        <td><a href="#" th:href="@{/autores/{id}(id=${autor.id})}">Detalle</a></td>
+		<!-- crear una ruta, permite recibir el id q vamos a buscar, dejar q vaya al enlace y eliminar el autor y volver aqui mismo-->
+        <td><a href="#" th:href="@{/eliminarAutor/{id}(id=${autor.id})}">Eliminar</a></td>
       </tr>
     </table>
 	

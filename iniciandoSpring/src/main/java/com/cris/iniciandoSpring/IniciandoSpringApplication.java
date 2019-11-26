@@ -14,26 +14,4 @@ public class IniciandoSpringApplication {
 		SpringApplication.run(IniciandoSpringApplication.class, args);
 	}
 
-	
-	
-	@Bean
-	public Autor cris() {
-		
-		Autor persona1 = new Autor();
-		persona1.setNombre("Cris");
-		persona1.setEdad(18);
-		
-		return persona1;		
-	}
-	
-	
-	@Bean 
-	public Autor marcos() {
-		
-		Autor persona1 = new Autor();
-		persona1.setNombre("Marcos");
-		persona1.setEdad(28);
-		
-		return persona1;		
-	}
 }

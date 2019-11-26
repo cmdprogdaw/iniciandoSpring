@@ -29,10 +29,10 @@ public class RutasBasicas {
 //		System.out.println("tu edad es: "+edad);
 //		model.addAttribute("nombre", nombre); //comunica el controlador con el html
 //		model.addAttribute("edad", edad);
-	@GetMapping("/start")
+	@GetMapping("/")
 	public String rutaBasicaInicial(Model model) {
 	
-		List<Autor> listaAutores = ListaAutores.construirLista();
+		List<Autor> listaAutores = ListaAutores.getLista();
 		model.addAttribute("autores",listaAutores);
 		
 		//va a buscar un fichero hola.html (solo ponemos el nombre) porque entiende que las vistas son ficheros .html
@@ -53,6 +53,19 @@ public class RutasBasicas {
 		return "autor";
 	}
 	
+	
+	@GetMapping("/eliminarAutor/{id}")
+	public String eliminarAutor(@PathVariable Integer id, 
+								Model model) {
+		//decirle q queremos borrar
+		ListaAutores.del(id);
+		//coger la lista
+		List<Autor> listaAutores = ListaAutores.getLista();
+		model.addAttribute("autores",listaAutores);
+	
+		
+		return "hola";
+	}
 	
 	
 	
