@@ -8,13 +8,16 @@ import com.cris.iniciandoSpring.beans.ListaAutores;
 
 public class ListaAutores {
 
-	private static ArrayList<Autor> lista = null;
+	private ArrayList<Autor> lista = null;
+
+	private static ListaAutores listaAutores = null; //objeto de si misma dentro (singleton puro)
 	
-	//es un singleton pq es private
+	
 	private ListaAutores(){
 		
-		lista = new ArrayList();
+		lista = new ArrayList<Autor>();
 		
+		/*
 		Autor autor = new Autor();
 		autor.setId(getIdNoRepetido());
 		autor.setNombre("Ket Follet");
@@ -42,41 +45,34 @@ public class ListaAutores {
 		autor4.setEdad(78);
 		autor4.setEmail("king@educastur.org");
 		lista.add(autor4);
-		
+		*/
 	}
 	
 	
 	/**
-	 * Garantizo que lo que pretendo meter nuevo no se repita el id
+	 * Le pide a la lista de autores los datos y devuelve la lista
+	 * @return
+	 */
+	public List<Autor> getDatos() {
+		
+		return lista;
+	}
+	
+	
+	/**
+	 * 
 	 * @return
 	 */
 	private int getIdNoRepetido() {
 		
-		int num = (int)(Math.random()*100)+1;
+		int numero = (int)(Math.random()*100)+1;
 		
-		//busco hasta que no lo encuentro
-		while (buscarDondeEsta(num) != -1) {
-			
-			num = (int)(Math.random()*100)+1;
-		}
-		return num;
-		
-	}
+		// busco hasta que no lo encuentro
+		while(buscarDondeEsta(numero)>=0) {
 
-
-	//singleton
-	/**
-	 * Devuleve a todos los autores
-	 * @return
-	 */
-	public static List<Autor> getLista() {
-		
-		if(lista==null) {
-			
-			new ListaAutores();
+			numero = (int)(Math.random()*100)+1;
 		}
-		
-		return lista;
+		return numero;
 	}
 	
 	
@@ -85,7 +81,7 @@ public class ListaAutores {
 	 * @param id
 	 * @return
 	 */
-	public static Autor getAutor(int idBuscado) {
+	public Autor getAutor(int idBuscado) {
 		
 		//busco donde esta e el array
 		int dondeEsta = buscarDondeEsta(idBuscado);
@@ -98,15 +94,38 @@ public class ListaAutores {
 		}
 		else return null;
 	}	
+
+	
+	/**
+	 * Añade un autor a la lista (a.k.a Modelo)
+	 * 
+	 * @param autor
+	 */
+	public void addAutor(Autor autor) {
+		
+		autor.setId(getIdNoRepetido()); //le pongo un id no repetido al autor
+		lista.add(autor); //meto al autor en la lista
+	}
 	
 	
+	/**
+	 * Actualiza un autor buscando primero su posicion en la lista
+	 * 
+	 * @param autor
+	 */
+	public void updateAutor(Autor autor) {
+		
+		int posicion = buscarDondeEsta(autor.getId());
+		lista.set(posicion, autor);
+	}
 	
 	
 	/**
 	 * Borra un objeto
+	 * 
 	 * @param idBuscado
 	 */
-	public static void del(int idBuscado) {
+	public void del(int idBuscado) {
 		
 		//pregunto si esta el id en concreto
 		int dondeEsta = buscarDondeEsta(idBuscado);
@@ -119,31 +138,46 @@ public class ListaAutores {
 	}
 	
 	
-
 	/**
 	 * 
 	 * @param idBuscado
-	 * @return posicion en el array donde se encuentra
+	 * @return posición en el arrayList donde se encuentra
 	 */
-	private static int buscarDondeEsta(int idBuscado) {
+	private int buscarDondeEsta(int idBuscado) {
 		
-		//iniciamos con una bandera indicando que no esta encontrado
+		// iniciamos con una bandera indicando que no está encontrado
 		boolean encontrado = false;
 		
-		int indice = 0;
 		
-		//mientras que no se encuentro y no llego al final
+		int indice = 0;
+		// mientras que no se encuentra y no llego al final
 		while((!encontrado)&&(indice<lista.size())) {
 			
-			//lo voy buscando
+			// lo voy buscando
 			if(lista.get(indice).getId()==idBuscado) {
 				
 				encontrado = true;
 			}
-			//y si no aparece, avanzo
+			// y si no aparece, avanzo
 			else indice ++;
 		}
 		if(encontrado) return indice; else return -1;
-	}	
+	}
+	
+	
+	/**
+	 * Petición del singleton
+	 * @return
+	 */
+	public static ListaAutores getLista() {
+		
+		//si el objeto no esta construido, lo construye
+		if(listaAutores==null) {
+			
+			listaAutores = new ListaAutores();
+		}
+		
+		return listaAutores;
+	}
 	
 }

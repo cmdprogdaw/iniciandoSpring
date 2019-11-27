@@ -3,7 +3,8 @@
 <head>
 	<meta charset="UTF-8"/>
 </head>
-	
+
+<body>	
 	<h1>Bienvenido aquí una lista de autores</h1>
 
     <table border="1">
@@ -13,20 +14,24 @@
         <th>edad</th>
         <th>email</th>
         <th></th>
+        <th></th>
+        <th></th>
       </tr>
       <tr th:each="autor : ${autores}">
-        <td th:text="${autor.id}">Onions</td>
-        <td th:text="${autor.nombre}">Onions</td>
-        <td th:text="${autor.edad}">2.41</td>
-        <td th:text="${autor.email}">yes</td>
+        <td th:text="${autor.id}">Id</td>
+        <td th:text="${autor.nombre}">Nombre</td>
+        <td th:text="${autor.edad}">Edad</td>
+        <td th:text="${autor.email}">Email</td>
         <!-- SIEMPRE q tengamos un enlace, q vaya a una ruta que tengo un controlador, pq vamos a manejar lo que va a pasar a continuacion -->
         <td><a href="#" th:href="@{/autores/{id}(id=${autor.id})}">Detalle</a></td>
 		<!-- crear una ruta, permite recibir el id q vamos a buscar, dejar q vaya al enlace y eliminar el autor y volver aqui mismo-->
         <td><a href="#" th:href="@{/eliminarAutor/{id}(id=${autor.id})}">Eliminar</a></td>
+        <td><a href="#" th:href="@{/editarAutor/{id}(id=${autor.id})}">Editar</a></td>
       </tr>
     </table>
 	
-
+	<p><a href="#" th:href="@{/nuevoAutor}">Nuevo autor</a></p>
+</body>
 </html>
 
 <!-- para cada uno de los autores que te vayas encontrando en la lista, llamalo unAutor y saca el texto dentro de ese autor 

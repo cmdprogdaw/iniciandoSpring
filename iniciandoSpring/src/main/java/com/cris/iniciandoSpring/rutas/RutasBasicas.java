@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cris.iniciandoSpring.beans.Autor;
@@ -29,11 +31,24 @@ public class RutasBasicas {
 //		System.out.println("tu edad es: "+edad);
 //		model.addAttribute("nombre", nombre); //comunica el controlador con el html
 //		model.addAttribute("edad", edad);
+	
+	
+	private ListaAutores lista = ListaAutores.getLista();
+	
+	
+	
+	/*
+	 * *******************************
+	 * *******************************
+	 * L I S T A N D O   A U T O R E S
+	 * *******************************
+	 * *******************************
+	 */
 	@GetMapping("/")
 	public String rutaBasicaInicial(Model model) {
 	
-		List<Autor> listaAutores = ListaAutores.getLista();
-		model.addAttribute("autores",listaAutores);
+
+		model.addAttribute("autores",lista.getDatos());
 		
 		//va a buscar un fichero hola.html (solo ponemos el nombre) porque entiende que las vistas son ficheros .html
 		return "hola";
@@ -41,34 +56,108 @@ public class RutasBasicas {
 	
 	
 	
-	
-	
+	/*
+	 * **************************
+	 * **************************
+	 * D E T A L L E    A U T O R
+	 * **************************
+	 * **************************
+	 */
 	@GetMapping("/autores/{id}")
 	public String verAutor(	@PathVariable Integer id, 
 							Model model) {
 		
-		Autor autor = ListaAutores.getAutor(id);
+		Autor autor = lista.getAutor(id);
 		model.addAttribute("autor", autor);
 		
 		return "autor";
 	}
 	
 	
+	
+	
+	/*
+	 * ***********************************
+	 * ***********************************
+	 * E L I M I N A N D O   A U T O R E S
+	 * ***********************************
+	 * ***********************************
+	 */
 	@GetMapping("/eliminarAutor/{id}")
 	public String eliminarAutor(@PathVariable Integer id, 
 								Model model) {
-		//decirle q queremos borrar
-		ListaAutores.del(id);
-		//coger la lista
-		List<Autor> listaAutores = ListaAutores.getLista();
-		model.addAttribute("autores",listaAutores);
-	
 		
-		return "hola";
+		lista.del(id);
+		
+		/*
+		 * Me lo curro yo
+		 * 
+		 * model.addAttribute("autores",lista.getDatos());
+		 * return "hola";
+		 */
+	
+		//le digo al controlador que quiero que vaya a otra ruta (me aprovecho)
+		return("redirect:/");
 	}
 	
 	
 	
+	/*
+	 * **********************************
+	 * **********************************
+	 * A Ñ A D I E N D O    A U T O R E S
+	 * **********************************
+	 * **********************************
+	 */
+	@GetMapping("/nuevoAutor")
+	public String nuevoAutor(Model model) {
+		
+		model.addAttribute("autor",new Autor()); // coloco en el modelo un atributo que es el nuevo autor para que se rellene
+		
+		return "nuevoAutor"; //html del formulario nuevo autor
+	}
+
+	
+	@PostMapping("/addAutor")
+	public String addAutor(@ModelAttribute Autor autor) { //me llega el autor que colé antes
+		
+		lista.addAutor(autor);
+		
+		return "redirect:/";
+	}
+	
+	
+	
+	
+	/*
+	 * ****************************
+	 * ****************************
+	 * E D I T A R    A U T O R E S
+	 * ****************************
+	 * ****************************
+	 */
+	@GetMapping("/editarAutor/{id}")
+	public String editarAutor(@PathVariable Integer id,
+							  Model model) {
+		
+		Autor autor = lista.getAutor(id);
+		model.addAttribute("autor", autor); 
+		
+		return "editarAutor"; 
+	}
+
+	
+	@PostMapping("/updateAutor")
+	public String updateAutor(@ModelAttribute Autor autor) {
+		
+		lista.updateAutor(autor);
+		
+		return "redirect:/";
+	}
+	
+	
+	
+	/*
 	//espero un parametro a traves de una peticion (localhost:9090/comienzo?id=5) o (http://localhost:9090/comienzo?id=777&nombre=cris)
 	//es solo una ruta (se puede variar el orden
 	@GetMapping("/comienzo")
@@ -80,5 +169,5 @@ public class RutasBasicas {
 		
 		return "cero";
 	}
-
+	 */
 }

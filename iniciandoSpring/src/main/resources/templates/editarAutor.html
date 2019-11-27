@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	
+<head>
+	<meta charset="UTF-8"/>
+</head>
+<body>
+
+	<h1>Editar autor</h1>
+	  
+	<form action="#" th:action="@{/updateAutor}" th:object="${autor}" method="post">
+	
+		<input hidden type="text" th:field="*{id}"/>
+		<p>Nombre: <input type="text" th:field="*{nombre}"/></p> 
+		<p>Edad: <input type="number" placeholder="inserta una edad" th:field="*{edad}"/></p>
+		<p>Email: <input type="email" th:field="*{email}"/></p>
+		
+		<p><input type="submit" value="Submit"/>
+			<input type="reset" value="Reset"/>
+		</p>
+	</form>
+	
+</body>
+</html>
