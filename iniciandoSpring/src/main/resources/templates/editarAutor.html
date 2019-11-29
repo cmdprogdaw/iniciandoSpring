@@ -14,6 +14,12 @@
 		<p>Edad: <input type="number" placeholder="inserta una edad" th:field="*{edad}"/></p>
 		<p>Email: <input type="email" th:field="*{email}"/></p>
 		
+		<p>
+			<select th:field="*{coche}">
+				<option th:each="cocheOpt:${coches}" th:value="${cocheOpt.id}" th:text="${cocheOpt.marca}">Mercedes</option>
+			</select>
+		</p>
+		
 		<p><input type="submit" value="Submit"/>
 			<input type="reset" value="Reset"/>
 		</p>

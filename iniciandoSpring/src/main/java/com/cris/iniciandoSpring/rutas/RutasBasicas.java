@@ -1,5 +1,6 @@
 package com.cris.iniciandoSpring.rutas;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cris.iniciandoSpring.beans.Autor;
+import com.cris.iniciandoSpring.beans.Coche;
 import com.cris.iniciandoSpring.beans.ListaAutores;
 
 /*habilitada para ser del grupo que recibe peticiones*/
@@ -47,8 +49,11 @@ public class RutasBasicas {
 	@GetMapping("/")
 	public String rutaBasicaInicial(Model model) {
 	
+		ArrayList<Coche> listaCoches = crearListaCoches();
+		model.addAttribute("coches", listaCoches);
 
 		model.addAttribute("autores",lista.getDatos());
+		
 		
 		//va a buscar un fichero hola.html (solo ponemos el nombre) porque entiende que las vistas son ficheros .html
 		return "hola";
@@ -112,6 +117,9 @@ public class RutasBasicas {
 	@GetMapping("/nuevoAutor")
 	public String nuevoAutor(Model model) {
 		
+		ArrayList<Coche> listaCoches = crearListaCoches();
+		
+		model.addAttribute("coches", listaCoches);
 		model.addAttribute("autor",new Autor()); // coloco en el modelo un atributo que es el nuevo autor para que se rellene
 		
 		return "nuevoAutor"; //html del formulario nuevo autor
@@ -140,6 +148,9 @@ public class RutasBasicas {
 	public String editarAutor(@PathVariable Integer id,
 							  Model model) {
 		
+		ArrayList<Coche> listaCoches = crearListaCoches();
+		model.addAttribute("coches", listaCoches);
+		
 		Autor autor = lista.getAutor(id);
 		model.addAttribute("autor", autor); 
 		
@@ -153,6 +164,24 @@ public class RutasBasicas {
 		lista.updateAutor(autor);
 		
 		return "redirect:/";
+	}
+	
+	
+	
+	
+	private ArrayList<Coche> crearListaCoches() {
+		ArrayList<Coche> listaCoches = new ArrayList<Coche>();
+		Coche volvo = new Coche();
+		volvo.setId(1);
+		volvo.setMarca("Volvo");
+		
+		Coche ford = new Coche();
+		ford.setId(2);
+		ford.setMarca("Ford");
+		
+		listaCoches.add(volvo);
+		listaCoches.add(ford);
+		return listaCoches;
 	}
 	
 	

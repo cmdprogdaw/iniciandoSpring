@@ -11,8 +11,9 @@
       <tr>
         <th>ID</th>
         <th>Nombre</th>
-        <th>edad</th>
-        <th>email</th>
+        <th>Edad</th>
+        <th>Email</th>
+        <th>Coche</th>
         <th></th>
         <th></th>
         <th></th>
@@ -22,6 +23,8 @@
         <td th:text="${autor.nombre}">Nombre</td>
         <td th:text="${autor.edad}">Edad</td>
         <td th:text="${autor.email}">Email</td>
+        <!-- primero itero y luego pregunto -->
+        <td th:each="coche:${coches}" th:if="${coche.id}==${autor.coche}" th:text="${coche.marca}">Mercedes</td>
         <!-- SIEMPRE q tengamos un enlace, q vaya a una ruta que tengo un controlador, pq vamos a manejar lo que va a pasar a continuacion -->
         <td><a href="#" th:href="@{/autores/{id}(id=${autor.id})}">Detalle</a></td>
 		<!-- crear una ruta, permite recibir el id q vamos a buscar, dejar q vaya al enlace y eliminar el autor y volver aqui mismo-->
