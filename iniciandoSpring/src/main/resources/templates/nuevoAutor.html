@@ -20,6 +20,13 @@
 			</select> <!-- el coche que me va a ir dando de la lista de coches (lo nombramos distinto para conflictos)-->
 		</p>
 		
+		<p>Texto: <textarea th:field=*{texto}></textarea></p>
+		<p>Género: <input type="radio" th:field=*{genero}/></p>
+		<p>Opciones: <input type="checkbox" th:field="*{opcion}"/></p>
+		<p>Fichero: <input type="file" th:field=*{file}/></p>
+		<p>Rango: <input type="range" th:field=*{rango}/></p>
+		<p>Url: <input type="url" th:field=*{url}/></p>
+		
 		<p>
 			<input type="submit" value="Submit"/>
 			<input type="reset" value="Reset"/>
