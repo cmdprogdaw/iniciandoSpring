@@ -5,37 +5,56 @@
 </head>
 
 <body>	
-	<h1>Bienvenido aquí una lista de autores</h1>
-
-    <table border="1">
-      <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Edad</th>
-        <th>Email</th>
-        <th>Coche</th>
-        <th></th>
-        <th></th>
-        <th></th>
-      </tr>
-      <tr th:each="autor : ${autores}">
-        <td th:text="${autor.id}">Id</td>
-        <td th:text="${autor.nombre}">Nombre</td>
-        <td th:text="${autor.edad}">Edad</td>
-        <td th:text="${autor.email}">Email</td>
-        <!-- primero itero y luego pregunto -->
-        <td th:each="coche:${coches}" th:if="${coche.id}==${autor.coche}" th:text="${coche.marca}">Mercedes</td>
-        <!-- SIEMPRE q tengamos un enlace, q vaya a una ruta que tengo un controlador, pq vamos a manejar lo que va a pasar a continuacion -->
-        <td><a href="#" th:href="@{/autores/{id}(id=${autor.id})}">Detalle</a></td>
-		<!-- crear una ruta, permite recibir el id q vamos a buscar, dejar q vaya al enlace y eliminar el autor y volver aqui mismo-->
-        <td><a href="#" th:href="@{/eliminarAutor/{id}(id=${autor.id})}">Eliminar</a></td>
-        <td><a href="#" th:href="@{/editarAutor/{id}(id=${autor.id})}">Editar</a></td>
-      </tr>
-    </table>
+	<h1 th:text="#{hola.title}">Bienvenido aquí una lista de autores</h1>
+	<p th:text="#{hola.numerosAutores(${nombre})}">blabla</p>
+	
+	<div th:switch="${#lists.isEmpty(autores)}">
+		<div th:case="true">
+			<p>No hay nadie</p>
+		</div>
+		
+	  	<div th:case="false">
+		    <table border="1">
+		      <tr>
+		        <th th:text="#{hola.tabla.id}">ID</th>
+		        <th>Nombre</th>
+		        <th>Edad</th>
+		        <th>Email</th>
+		        <th>Coche</th>
+		        <th></th>
+		        <th></th>
+		        <th></th>
+		      </tr>
+		      <tr th:each="autor : ${autores}">
+		        <td th:text="${autor.id}">Id</td>
+		        <td th:text="${autor.nombre}">Nombre</td>
+		        <td th:text="${autor.edad}">Edad</td>
+		        <td th:text="${autor.email}">Email</td>
+		        <!-- primero itero y luego pregunto -->
+		        <td th:each="coche:${coches}" th:if="${coche.id}==${autor.coche}" th:text="${coche.marca}">Mercedes</td>
+		        <!-- SIEMPRE q tengamos un enlace, q vaya a una ruta que tengo un controlador, pq vamos a manejar lo que va a pasar a continuacion -->
+		        <td><a href="#" th:href="@{/autores/{id}(id=${autor.id})}">Detalle</a></td>
+				<!-- crear una ruta, permite recibir el id q vamos a buscar, dejar q vaya al enlace y eliminar el autor y volver aqui mismo-->
+		        <td><a href="#" th:href="@{/eliminarAutor/{id}(id=${autor.id})}">Eliminar</a></td>
+		        <td><a href="#" th:href="@{/editarAutor/{id}(id=${autor.id})}">Editar</a></td>
+		      </tr>
+		    </table>
+	  	</div>
+	</div>
 	
 	<p><a href="#" th:href="@{/nuevoAutor}">Nuevo autor</a></p>
+	
 </body>
 </html>
+
+<!-- 
+	<p>Infomacion de la lista de Autores</p>
+	<ul>
+		<li th:text="${#lists.size(autores)}">hola</li>
+		<li th:text="${#lists.isEmpty(autores)}"></li>
+	</ul>
+-->
+
 
 <!-- para cada uno de los autores que te vayas encontrando en la lista, llamalo unAutor y saca el texto dentro de ese autor 
 	<ol>

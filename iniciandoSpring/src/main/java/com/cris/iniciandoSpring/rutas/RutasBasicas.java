@@ -1,15 +1,13 @@
 package com.cris.iniciandoSpring.rutas;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.cris.iniciandoSpring.beans.Autor;
 import com.cris.iniciandoSpring.beans.Coche;
@@ -47,16 +45,17 @@ public class RutasBasicas {
 	 * *******************************
 	 */
 	@GetMapping("/")
-	public String rutaBasicaInicial(Model model) {
+	public ModelAndView rutaBasicaInicial() {
 	
 		ArrayList<Coche> listaCoches = crearListaCoches();
-		model.addAttribute("coches", listaCoches);
-
-		model.addAttribute("autores",lista.getDatos());
 		
+		//todo va junto, devuelve un 'paquete' donde esta todo, cosa que no pasa con Model o ModelMap
+		ModelAndView model = new ModelAndView();
+		model.setViewName("hola");
+		model.addObject("coches", listaCoches);
+		model.addObject("autores",lista.getDatos());
 		
-		//va a buscar un fichero hola.html (solo ponemos el nombre) porque entiende que las vistas son ficheros .html
-		return "hola";
+		return model;
 	}
 	
 	
