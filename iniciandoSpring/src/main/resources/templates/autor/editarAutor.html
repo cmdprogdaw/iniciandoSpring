@@ -20,6 +20,21 @@
 			</select>
 		</p>
 		
+		<p> 
+			<textarea th:field="*{texto}" rows="6" cols="20">
+			</textarea>
+		</p>
+		
+		<p><input type="range" th:field="*{rango}" min="0" max="10"/></p>
+		
+		<p>Carnet: <input type="checkbox" th:field="*{carnet}"/></p>
+		
+		<p> 
+			Hombre:<input type="radio" th:field=*{genero} value="hombre"/>
+			Mujer:<input type="radio" th:field=*{genero} value="mujer"/>
+			Otro:<input type="radio" th:field=*{genero} value="otro"/>
+		</p>
+		
 		<p><input type="submit" value="Submit"/>
 			<input type="reset" value="Reset"/>
 		</p>

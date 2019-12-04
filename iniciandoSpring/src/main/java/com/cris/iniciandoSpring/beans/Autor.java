@@ -7,7 +7,10 @@ public class Autor {
 	private Integer edad;
 	private String email;
 	private String coche;
-	
+	private String texto;
+	private Integer rango;
+	private boolean carnet;
+	private String genero;
 	
 	
 	public int getId() {
@@ -40,11 +43,31 @@ public class Autor {
 	public void setCoche(String coche) {
 		this.coche = coche;
 	}
-	
-	
-	@Override
-	public String toString() {
-		return "Persona [("+id+") nombre=" + nombre + ", edad=" + edad + "]";
+	public String getTexto() {
+		return texto;
 	}
+	public void setTexto(String texto) {
+		this.texto = texto;
+	}
+	public Integer getRango() {
+		return rango;
+	}
+	public void setRango(Integer rango) {
+		this.rango = rango;
+	}
+	public boolean isCarnet() {
+		return carnet;
+	}
+	public void setCarnet(boolean carnet) {
+		this.carnet = carnet;
+	}
+	public String getGenero() {
+		return genero;
+	}
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+	
+	
 		
 }
