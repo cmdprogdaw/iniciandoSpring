@@ -1,0 +1,17 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	
+<head>
+	<meta charset="UTF-8"/>
+</head>
+	
+<body>
+	<h1>Información de coches</h1>
+	
+   	<p th:text="${coche.id}">Id</p>
+    <p th:text="${coche.marca}">Marca</p>
+    <p th:text="${coche.caballos}">Caballos</p>
+    <p th:text="${coche.color}">Color</p>
+    
+    <p><a href="#" th:href="@{/coches}">Volver a la lista de coches</a></p>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	
+<head>
+	<meta charset="UTF-8"/>
+</head>
+
+<body>	
+
+	<ul>
+		<li><a href="#" th:href="@{/autores}">Autores</a></li>
+		<li><a href="#" th:href="@{/coches}">Coches</a></li>
+	</ul>
+
+	<h1 th:text="#{coches.title}">Bienvenido aquí una lista de coches</h1>
+	
+	<div th:switch="${#lists.isEmpty(coches)}">
+		<div th:case="true">
+			<p>No hay ningún coche</p>
+		</div>
+		
+	  	<div th:case="false">
+		    <table border="1">
+		      <tr>
+		        <th th:text="#{tabla.id}">ID</th>
+		        <th>Marca</th>
+		        <th>Caballos</th>
+		        <th>Color</th>
+		        <th></th>
+		        <th></th>
+		        <th></th>
+		      </tr>
+		      <tr th:each="coche : ${coches}">
+		        <td th:text="${coche.id}">Id</td>
+		        <td th:text="${coche.marca}">Marca</td>
+		        <td th:text="${coche.caballos}">Caballos</td>
+		        <td th:text="${coche.color}">Color</td>
+		        
+		        <!-- SIEMPRE q tengamos un enlace, q vaya a una ruta que tengo un controlador, pq vamos a manejar lo que va a pasar a continuacion -->
+		        <td><a href="#" th:href="@{/coches/{id}(id=${coche.id})}">Detalle</a></td>
+		        
+				<!-- crear una ruta, permite recibir el id q vamos a buscar, dejar q vaya al enlace y eliminar el autor y volver aqui mismo-->
+		        <td><a href="#" th:href="@{/eliminarCoche/{id}(id=${coche.id})}">Eliminar</a></td>
+		        <td><a href="#" th:href="@{/editarCoche/{id}(id=${coche.id})}">Editar</a></td>
+		      </tr>
+		    </table>
+	  	</div>
+	</div>
+	
+	
+	<p>Nuevo coche</p>
+	  
+	<form action="#" th:action="@{addCoche}" th:object="${coche}" method="post">
+	
+		<p>Marca: <input type="text" th:field="*{marca}"/></p> 
+		<p>Caballos: <input type="number" th:field="*{caballos}" placeholder="inserta un numero de caballos"/></p>
+		<p>Color: <input type="text" th:field="*{color}"/></p>
+			 
+		<p>
+			<input type="submit" value="Submit"/>
+			<input type="reset" value="Reset"/>
+		</p>
+	</form>
+	
+</body>
+</html>

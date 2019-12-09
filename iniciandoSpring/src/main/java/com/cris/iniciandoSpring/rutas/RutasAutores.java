@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cris.iniciandoSpring.beans.Autor;
 import com.cris.iniciandoSpring.beans.Coche;
 import com.cris.iniciandoSpring.beans.ListaAutores;
+import com.cris.iniciandoSpring.beans.ListaCoches;
 
 /*habilitada para ser del grupo que recibe peticiones*/
 @Controller  
@@ -34,7 +35,8 @@ public class RutasAutores {
 //		model.addAttribute("edad", edad);
 	
 	
-	private ListaAutores lista = ListaAutores.getLista();
+	private ListaAutores listaAutores = ListaAutores.getLista();
+	private ListaCoches listaCoches = ListaCoches.getLista();
 	
 	
 	/*
@@ -46,14 +48,12 @@ public class RutasAutores {
 	 */
 	@GetMapping("/autores")
 	public ModelAndView rutaAutores() {
-	
-		ArrayList<Coche> listaCoches = crearListaCoches();
 		
 		//todo va junto, devuelve un 'paquete' donde esta todo, cosa que no pasa con Model o ModelMap
 		ModelAndView model = new ModelAndView();
 		model.setViewName("autor/autores");
-		model.addObject("coches", listaCoches);
-		model.addObject("autores",lista.getDatos());
+		model.addObject("coches", listaCoches.getDatos());
+		model.addObject("autores",listaAutores.getDatos());
 		
 		return model;
 	}
@@ -71,7 +71,7 @@ public class RutasAutores {
 	public String verAutor(	@PathVariable Integer id, 
 							Model model) {
 		
-		Autor autor = lista.getAutor(id);
+		Autor autor = listaAutores.getAutor(id);
 		model.addAttribute("autor", autor);
 		
 		return "autor/detalleAutor";
@@ -92,7 +92,7 @@ public class RutasAutores {
 	public String getEliminarAutor(@PathVariable Integer id, 
 								Model model) {
 		
-		lista.del(id);
+		listaAutores.del(id);
 		
 		/*
 		 * Me lo curro yo
@@ -110,7 +110,7 @@ public class RutasAutores {
 	public String eliminarAutor(@PathVariable Integer id, 
 								Model model) {
 		
-		lista.del(id);
+		listaAutores.del(id);
 		
 		return("200");
 	}
@@ -127,9 +127,8 @@ public class RutasAutores {
 	@GetMapping("/nuevoAutor")
 	public String nuevoAutor(Model model) {
 		
-		ArrayList<Coche> listaCoches = crearListaCoches();
 		
-		model.addAttribute("coches", listaCoches);
+		model.addAttribute("coches", listaCoches.getDatos());
 		model.addAttribute("autor",new Autor()); // coloco en el modelo un atributo que es el nuevo autor para que se rellene
 		
 		return "autor/nuevoAutor"; //html del formulario nuevo autor
@@ -139,7 +138,7 @@ public class RutasAutores {
 	@PostMapping("/addAutor")
 	public String addAutor(@ModelAttribute Autor autor) { //me llega el autor que colé antes
 		
-		lista.addAutor(autor);
+		listaAutores.addAutor(autor);
 		
 		return "redirect:/autores"; //redirect va a una ruta
 	}
@@ -158,10 +157,10 @@ public class RutasAutores {
 	public String editarAutor(@PathVariable Integer id,
 							  Model model) {
 		
-		ArrayList<Coche> listaCoches = crearListaCoches();
-		model.addAttribute("coches", listaCoches);
 		
-		Autor autor = lista.getAutor(id);
+		model.addAttribute("coches", listaCoches.getDatos());
+		
+		Autor autor = listaAutores.getAutor(id);
 		model.addAttribute("autor", autor); 
 		
 		return "/autor/editarAutor"; 
@@ -171,14 +170,14 @@ public class RutasAutores {
 	@PostMapping("/updateAutor")
 	public String updateAutor(@ModelAttribute Autor autor) {
 		
-		lista.updateAutor(autor);
+		listaAutores.updateAutor(autor);
 		
 		return "redirect:/autores";
 	}
 	
 	
 	
-	
+	/*
 	private ArrayList<Coche> crearListaCoches() {
 		ArrayList<Coche> listaCoches = new ArrayList<Coche>();
 		Coche volvo = new Coche();
@@ -193,6 +192,7 @@ public class RutasAutores {
 		listaCoches.add(ford);
 		return listaCoches;
 	}
+	*/
 	
 	
 	

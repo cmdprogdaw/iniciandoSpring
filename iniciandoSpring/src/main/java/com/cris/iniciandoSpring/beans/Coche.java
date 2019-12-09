@@ -4,6 +4,8 @@ public class Coche {
 
 	private Integer id;
 	private String marca;
+	private String caballos;
+	private String color;
 	
 	
 	public Integer getId() {
@@ -17,6 +19,18 @@ public class Coche {
 	}
 	public void setMarca(String marca) {
 		this.marca = marca;
+	}
+	public String getCaballos() {
+		return caballos;
+	}
+	public void setCaballos(String caballos) {
+		this.caballos = caballos;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
 	}
 	
 	

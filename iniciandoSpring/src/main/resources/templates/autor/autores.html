@@ -5,7 +5,13 @@
 </head>
 
 <body>	
-	<h1 th:text="#{hola.title}">Bienvenido aquí una lista de autores</h1>
+
+	<ul>
+		<li><a href="#" th:href="@{/autores}">Autores</a></li>
+		<li><a href="#" th:href="@{/coches}">Coches</a></li>
+	</ul>
+
+	<h1 th:text="#{autores.title}">Bienvenido aquí una lista de autores</h1>
 	<!-- <p th:text="#{hola.numerosAutores(${nombre})}">blabla</p> -->
 	
 	<div th:switch="${#lists.isEmpty(autores)}">
@@ -16,7 +22,7 @@
 	  	<div th:case="false">
 		    <table border="1">
 		      <tr>
-		        <th th:text="#{hola.tabla.id}">ID</th>
+		        <th th:text="#{tabla.id}">ID</th>
 		        <th>Nombre</th>
 		        <th>Edad</th>
 		        <th>Email</th>
