@@ -1,7 +1,5 @@
 package com.cris.iniciandoSpring.rutas;
 
-import java.util.ArrayList;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,15 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cris.iniciandoSpring.beans.Autor;
 import com.cris.iniciandoSpring.beans.Coche;
-import com.cris.iniciandoSpring.beans.ListaAutores;
 import com.cris.iniciandoSpring.beans.ListaCoches;
 
 @Controller
 public class RutasCoches {
 
-	private ListaAutores listaAutores = ListaAutores.getLista();
 	private ListaCoches listaCoches = ListaCoches.getLista();
 	
 	
